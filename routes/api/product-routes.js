@@ -6,14 +6,14 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', async (req, res) => {
   try {
-    const allProducts = await Product.map({
-      include: [{ model: Category }, { model: ProductTag}],
+    const allProducts = await Product.findAll({
+      include: [{ model: Category, attributes:['category_name'] }, { model: Tag, attributes:['tag_name']}],
     });
     res.status(200).json(allProducts);
   } catch (err) {
     res.status(500).json(err);
   }
-  // find all products
+  // find all products 
   // be sure to include its associated Category and Tag data
 });
 
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const singleProduct = await Product.findByPk(req.params.id, {
-     include: [{ model: Category, through: Tag, as: product_id}] 
+     include: [{ model: Category, attributes:['category_name'] }, { model: Tag, attributes:['tag_name']}] 
     });
 
     if (!singleProduct) {
@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
-      price: 200.00,
+      price: 200.00,                              //THIS IS POSTMAN STUFF, WHY IS IT HERE
       stock: 3,
       tagIds: [1, 2, 3, 4]
     }
@@ -113,6 +113,15 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((deleteProduct) => {
+      res.json(deleteProduct);
+    })
+    .catch((err) => res.json(err));
 });
 
 module.exports = router;
