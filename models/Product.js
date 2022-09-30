@@ -26,14 +26,6 @@ Product.init(
       validate: {
         isDecimal: true
       }
-    // },
-    // catergory_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {                        // <--this shit don't work. WHO KNOWS WHY D:
-    //     model: 'category',
-    //     key: 'id',
-    //     unique: false
-    //   }
     },
     stock: {
       type: DataTypes.INTEGER,
