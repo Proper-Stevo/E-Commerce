@@ -43,3 +43,5 @@ SOFTWARE.
 
 GitHub : https://github.com/Proper-Stevo/E-Commerce
 
+Picture of POSTMAN: 
+![Alt text](https://github.com/Proper-Stevo/E-Commerce/blob/main/sources/productsexample.png)
